@@ -1,2 +1,2 @@
 # Point-Color-Classification
-In this project I used pygame for visualization and detecting mouseclick to train the dataset created at runtime by implementing a single perceptron
+In this projejct I'm creating a dataset of points, training the dataset by implemention a single perceptron. I used pygame for visualization.
