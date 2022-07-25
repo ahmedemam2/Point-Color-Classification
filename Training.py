@@ -8,7 +8,7 @@ class Point:
 
         if(self.x>self.y):
             self.label = 1
-            self.color = (0,0,255)
+
         else:
             self.label = -1
-            self.color = (255,0,0)
+        self.color = (255, 0, 0)

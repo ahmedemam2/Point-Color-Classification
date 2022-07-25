@@ -13,6 +13,7 @@ def createPts():
         listPts.append(temp)
 
 def setup():
+    trainingIndex = 0
     inputs = [-1,0.5]
     guess = brain.guess(inputs)
     print(guess)
@@ -34,26 +35,33 @@ def setup():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for pt in listPts:
-                    inputs = [pt.x, pt.y]
-                    target = pt.label
-                    brain.train(inputs,target)
-
+                    for pt in listPts:
+                        inputs = [pt.x, pt.y]
+                        target = pt.label
+                        guess = brain.guess(inputs)
+                        if guess == target:
+                            if pt.x > pt.y:
+                                pt.color = (0, 0, 255)
+                            else:
+                                pt.color = (0, 255, 0)
+                        else:
+                            pt.color = (255, 0, 0)
         wn.fill(White)
 
         width = 5
         pygame.draw.line(wn, (0,0,0,), (startx, starty), (endx, endy))
         for pt in listPts:
             pygame.draw.circle(wn, pt.color, (pt.x ,pt.y), radius)
-        for pt in listPts:
-            inputs = [pt.x,pt.y]
-            target = pt.label
-            guess = brain.guess(inputs)
-            if guess == target:
-                pt.color = (0,255,0)
-            else:
-                pt.color = (255,0,0)
 
+        training = listPts[trainingIndex]
+        inputs = [training.x,training.y]
+        target = training.label
+        brain.train(inputs,target)
+        trainingIndex += 1
+        if trainingIndex == len(listPts):
+            trainingIndex = 0
         pygame.display.update()
+
 
 createPts()
 setup()
